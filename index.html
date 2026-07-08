@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fortaleza Box | Gimnasio de boxeo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a0a;
+    --black-2: #141212;
+    --red: #d81e2c;
+    --red-deep: #8f0f18;
+    --bone: #ece5d8;
+    --bone-dim: #b8b0a2;
+    --gold: #c9a24b;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--black);
+    color:var(--bone);
+    font-family:'Barlow Condensed', sans-serif;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3, .display{
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+  }
+
+  .eyebrow{
+    font-family:'Oswald', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:4px;
+    font-size:0.75rem;
+    color:var(--red);
+    font-weight:500;
+  }
+
+  /* Texture: subtle canvas/rope lines */
+  .texture{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:0;
+    opacity:0.05;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 3px, #fff 3px, #fff 4px);
+  }
+
+  header{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 6%;
+    background:linear-gradient(180deg, rgba(11,10,10,0.95), rgba(11,10,10,0));
+  }
+
+  .logo{
+    font-size:1.6rem;
+    letter-spacing:2px;
+    color:var(--bone);
+  }
+  .logo span{color:var(--red);}
+
+  .call-mini{
+    display:none;
+  }
+
+  @media(min-width:720px){
+    .call-mini{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:2px solid var(--red);
+      color:var(--bone);
+      text-decoration:none;
+      padding:8px 18px;
+      font-family:'Oswald',sans-serif;
+      letter-spacing:1px;
+      font-size:0.85rem;
+      font-weight:500;
+      transition:background .2s ease, color .2s ease;
+    }
+    .call-mini:hover{background:var(--red); color:#fff;}
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+    padding:0 6%;
+    background:
+      linear-gradient(90deg, rgba(11,10,10,0.97) 0%, rgba(11,10,10,0.88) 40%, rgba(11,10,10,0.4) 100%),
+      url('hero-boxer.jpeg');
+    background-size: cover;
+    background-position: right center;
+  }
+
+  .hero-tape{
+    font-family:'Oswald', sans-serif;
+    letter-spacing:6px;
+    font-size:0.8rem;
+    color:var(--bone-dim);
+    border-top:1px solid var(--red);
+    border-bottom:1px solid var(--red);
+    padding:8px 0;
+    margin-bottom:28px;
+    opacity:0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero h1{
+    font-size:clamp(3.5rem, 14vw, 9.5rem);
+    line-height:0.85;
+    color:var(--bone);
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.15s;
+  }
+  .hero h1 .accent{
+    color:var(--red);
+    display:block;
+    -webkit-text-stroke: 2px var(--red);
+  }
+
+  .hero-sub{
+    max-width:520px;
+    font-size:1.25rem;
+    color:var(--bone-dim);
+    margin-top:24px;
+    font-weight:400;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.3s;
+  }
+
+  .hero-ctas{
+    margin-top:40px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation: fadeUp 0.9s ease forwards 0.45s;
+  }
+
+  .btn-primary{
+    background:var(--red);
+    color:#fff;
+    border:none;
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    letter-spacing:1.5px;
+    font-size:1rem;
+    padding:18px 34px;
+    text-decoration:none;
+    text-transform:uppercase;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    position:relative;
+    transition:transform .15s ease;
+    box-shadow: 6px 6px 0 var(--red-deep);
+  }
+  .btn-primary:hover{
+    transform:translate(3px,3px);
+    box-shadow: 3px 3px 0 var(--red-deep);
+  }
+  .btn-primary:active{
+    transform:translate(6px,6px);
+    box-shadow: 0 0 0 var(--red-deep);
+  }
+
+  .btn-secondary{
+    color:var(--bone);
+    border:1px solid var(--bone-dim);
+    font-family:'Oswald', sans-serif;
+    letter-spacing:1.5px;
+    font-size:1rem;
+    padding:18px 30px;
+    text-decoration:none;
+    text-transform:uppercase;
+  }
+  .btn-secondary:hover{border-color:var(--bone); color:#fff;}
+
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(24px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* CARTELERA (Fight card schedule) */
+  section{
+    position:relative;
+    z-index:1;
+    padding:110px 6%;
+  }
+
+  .section-head{
+    margin-bottom:60px;
+  }
+  .section-head h2{
+    font-size:clamp(2.2rem, 5vw, 3.6rem);
+    color:var(--bone);
+    margin-top:8px;
+  }
+
+  .cartelera{
+    display:grid;
+    gap:1px;
+    background:var(--red);
+    border:1px solid var(--red);
+  }
+
+  .card-row{
+    background:var(--black-2);
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:24px;
+    padding:32px;
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .card-row.visible{opacity:1; transform:translateY(0);}
+
+  .card-round{
+    font-family:'Anton', sans-serif;
+    font-size:0.9rem;
+    color:var(--red);
+    border:2px solid var(--red);
+    width:52px;
+    height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+
+  .card-info h3{
+    font-size:clamp(1.6rem, 3.5vw, 2.4rem);
+    color:var(--bone);
+  }
+  .card-info p{
+    color:var(--bone-dim);
+    font-size:1.05rem;
+    margin-top:4px;
+  }
+
+  .card-time{
+    text-align:right;
+    font-family:'Oswald', sans-serif;
+  }
+  .card-time .big{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    color:var(--red);
+    font-weight:600;
+    line-height:1;
+  }
+  .card-time .small{
+    font-size:0.8rem;
+    letter-spacing:2px;
+    color:var(--bone-dim);
+    text-transform:uppercase;
+  }
+
+  @media(max-width:640px){
+    .card-row{grid-template-columns:auto 1fr; grid-template-areas:"round info" ". time";}
+    .card-round{grid-area:round;}
+    .card-info{grid-area:info;}
+    .card-time{grid-area:time; text-align:left; margin-top:12px;}
+  }
+
+  /* WHY / FEATURES */
+  .why{background:var(--bone); color:var(--black);}
+  .why .eyebrow{color:var(--red-deep);}
+  .why .section-head h2{color:var(--black);}
+
+  .features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:2px;
+    background:var(--black);
+  }
+  .feature{
+    background:var(--bone);
+    padding:36px 28px;
+  }
+  .feature .num{
+    font-family:'Anton', sans-serif;
+    font-size:2.2rem;
+    color:var(--red-deep);
+  }
+  .feature h3{
+    font-size:1.5rem;
+    margin:10px 0 8px;
+    color:var(--black);
+  }
+  .feature p{
+    color:#4a4340;
+    font-size:1.05rem;
+    line-height:1.4;
+  }
+
+  /* AWARDS STRIP */
+  .location-strip{
+    display:grid;
+    grid-template-columns:1fr;
+    background:var(--black-2);
+    border-top:1px solid #2a2626;
+    border-bottom:1px solid #2a2626;
+  }
+  @media(min-width:820px){
+    .location-strip{grid-template-columns:1fr 1fr;}
+  }
+  .location-img{
+    min-height:340px;
+    background:url('gloves-spotlight.jpeg');
+    background-size:cover;
+    background-position:center;
+  }
+  .location-text{
+    padding:60px 8%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .location-text h3{
+    font-size:clamp(1.8rem, 4vw, 2.6rem);
+    color:var(--bone);
+    margin-bottom:14px;
+  }
+  .location-text p{
+    color:var(--bone-dim);
+    font-size:1.1rem;
+    max-width:420px;
+  }
+
+  /* FINAL CTA */
+  .final-cta{
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(216,30,44,0.3), transparent 60%),
+      var(--black);
+    padding:140px 6%;
+  }
+  .final-cta h2{
+    font-size:clamp(2.6rem, 8vw, 5rem);
+    color:var(--bone);
+  }
+  .final-cta h2 span{color:var(--red);}
+  .final-cta p{
+    color:var(--bone-dim);
+    font-size:1.2rem;
+    max-width:480px;
+    margin:20px auto 40px;
+  }
+
+  footer{
+    padding:36px 6%;
+    text-align:center;
+    color:var(--bone-dim);
+    font-size:0.85rem;
+    border-top:1px solid #2a2626;
+  }
+
+  .fade-in{
+    opacity:0;
+    transform:translateY(20px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+    .fade-in, .card-row{opacity:1 !important; transform:none !important;}
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="texture"></div>
+
+<header>
+  <div class="logo">FORTA<span>LEZA</span></div>
+  <a class="call-mini" href="tel:+525616057355">📞 52 56 1605 7355</a>
+</header>
+
+<section class="hero">
+  <div class="hero-tape">GIMNASIO DE BOX — ATIZAPÁN DE ZARAGOZA</div>
+  <h1>FORJA TU<span class="accent">FORTALEZA</span></h1>
+  <p class="hero-sub">Boxeo para niños, jóvenes y adultos. Técnica real, disciplina real, resultados reales — arriba del ring y fuera de él.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="tel:+525616057355">🥊 Reservar clase gratis</a>
+    <a class="btn-secondary" href="#horarios">Ver horarios</a>
+  </div>
+</section>
+
+<section id="horarios">
+  <div class="section-head">
+    <div class="eyebrow">Cartelera semanal</div>
+    <h2>Horarios de entrenamiento</h2>
+  </div>
+  <div class="cartelera">
+    <div class="card-row">
+      <div class="card-round">R1</div>
+      <div class="card-info">
+        <h3>Categoría Niños</h3>
+        <p>Fundamentos de boxeo, coordinación y disciplina — en un ambiente seguro y divertido.</p>
+      </div>
+      <div class="card-time">
+        <div class="big">4:30–6:00</div>
+        <div class="small">De lunes a viernes</div>
+      </div>
+    </div>
+    <div class="card-row">
+      <div class="card-round">R2</div>
+      <div class="card-info">
+        <h3>Jóvenes y Adultos</h3>
+        <p>Técnica, condición física y sparring guiado para todos los niveles.</p>
+      </div>
+      <div class="card-time">
+        <div class="big">7:30–9:00</div>
+        <div class="small">De lunes a viernes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why">
+  <div class="section-head">
+    <div class="eyebrow">Por qué Fortaleza</div>
+    <h2>Entrena con propósito</h2>
+  </div>
+  <div class="features">
+    <div class="feature">
+      <div class="num">01</div>
+      <h3>Instrucción experta</h3>
+      <p>Entrenadores con trayectoria y reconocimientos en el boxeo local, enfocados en técnica correcta desde el día uno.</p>
+    </div>
+    <div class="feature">
+      <div class="num">02</div>
+      <h3>Grupos por edad</h3>
+      <p>Clases separadas para niños y para jóvenes/adultos, cada una con su propio ritmo y objetivos.</p>
+    </div>
+    <div class="feature">
+      <div class="num">03</div>
+      <h3>Ambiente disciplinado</h3>
+      <p>Un gimnasio serio pero cercano: se entrena fuerte y se cuida a cada alumno.</p>
+    </div>
+  </div>
+</section>
+
+<div class="location-strip">
+  <div class="location-img" role="img" aria-label="Guantes de boxeo colgados bajo un reflector"></div>
+  <div class="location-text">
+    <div class="eyebrow">Dónde entrenamos</div>
+    <h3>Atizapán de Zaragoza</h3>
+    <p>Un espacio hecho para entrenar en serio, sin distracciones. Ven a conocerlo y a sentir el ambiente antes de tu primera clase.</p>
+  </div>
+</div>
+
+<section class="final-cta">
+  <h2>Tu primer <span>round</span> es gratis</h2>
+  <p>Ven a conocer el gimnasio, prueba una clase sin costo y decide si Fortaleza es para ti.</p>
+  <a class="btn-primary" href="tel:+525616057355">🥊 Reservar clase gratis</a>
+</section>
+
+<footer>
+  Fortaleza Box · Atizapán de Zaragoza, Estado de México · Llama al 56 1605 7355
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+
+  document.querySelectorAll('.card-row, .fade-in, .feature').forEach(el=>io.observe(el));
+  document.querySelectorAll('.feature').forEach(el=>el.classList.add('fade-in'));
+
+  // Fallback for browsers/previews that block tel: links: copy the number instead.
+  document.querySelectorAll('a[href^="tel:"]').forEach(link=>{
+    link.addEventListener('click', (e)=>{
+      const number = link.getAttribute('href').replace('tel:','');
+      window.location.href = link.getAttribute('href');
+      setTimeout(()=>{
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(number).then(()=>{
+            const toast = document.createElement('div');
+            toast.textContent = 'Número copiado: ' + number;
+            toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#d81e2c;color:#fff;padding:12px 22px;font-family:Oswald,sans-serif;letter-spacing:1px;z-index:100;';
+            document.body.appendChild(toast);
+            setTimeout(()=>toast.remove(), 2800);
+          });
+        }
+      }, 400);
+    });
+  });
+</script>
+
+</body>
+</html>
