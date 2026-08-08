@@ -324,6 +324,27 @@ section{
   font-weight:700;
   font-size:1.1rem;
 }
+.map-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:12px;
+  background:var(--red);
+  color:var(--white);
+  font-family:'Rubik',sans-serif;
+  font-weight:700;
+  font-size:0.92rem;
+  padding:11px 22px;
+  border-radius:50px;
+  text-decoration:none;
+  box-shadow:0 0 20px rgba(227,6,19,0.35);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.map-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 32px rgba(227,6,19,0.6);
+}
+.map-btn svg{width:18px; height:18px;}
 
 /* CTA FINAL */
 .cta-final{
@@ -482,6 +503,10 @@ footer .prof{color:var(--white); font-weight:700;}
       <div>
         <h4>Ubicación</h4>
         <p>Cda. Adolfo López Mateos #7<br>Las Colonias (entrada por Azaleas)</p>
+        <a href="https://maps.app.goo.gl/64Bj9Z4RzvMrtKVy6?g_st=ipc" target="_blank" rel="noopener" class="map-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          <span>Ubicación</span>
+        </a>
       </div>
     </div>
     <div class="info-card reveal">
@@ -508,7 +533,7 @@ footer .prof{color:var(--white); font-weight:700;}
   <p class="reveal">Escríbenos por WhatsApp y te enviamos toda la información: horarios, precios y cómo reservar tu lugar.</p>
   <a id="waMain" href="#" target="_blank" class="wa-btn reveal">
     <svg viewBox="0 0 24 24" fill="#0a0a0a"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.14.82.84-3.06-.19-.32a8.2 8.2 0 0 1-1.26-4.38c0-4.53 3.7-8.22 8.25-8.22 4.55 0 8.25 3.69 8.25 8.22 0 4.53-3.7 8.22-8.25 8.22zm4.53-6.15c-.25-.13-1.47-.72-1.7-.8-.23-.08-.4-.13-.56.13-.17.25-.65.8-.79.97-.15.17-.29.19-.54.06-.25-.13-1.05-.39-2-1.23-.74-.66-1.24-1.48-1.39-1.73-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.44.12-.15.16-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.87.85-.87 2.08 0 1.23.89 2.41 1.02 2.58.13.17 1.75 2.68 4.25 3.75.59.26 1.05.41 1.41.53.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.29z"/></svg>
-    <span>Pedir información por WhatsApp</span>
+    <span>Más información</span>
   </a>
 </section>
 
